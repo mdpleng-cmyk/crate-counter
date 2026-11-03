@@ -126,6 +126,26 @@ rect.hz{fill:transparent}rect.hz[data-d]{cursor:pointer}rect.hz:hover{fill:rgba(
 .dnav{display:flex;flex-wrap:wrap;gap:8px;align-items:center}
 .dnav button,.dnav input,.dnav a{font:inherit;font-size:14px;min-height:40px;border:1px solid var(--line);background:#fff;border-radius:8px;padding:8px 14px;color:var(--ink);cursor:pointer;text-decoration:none;display:inline-flex;align-items:center}
 .dnav button:disabled{opacity:.4;cursor:default}
+.mnav{display:none}
+@media(max-width:900px){
+.mnav{display:flex;gap:6px;position:sticky;top:0;z-index:20;background:var(--nav);padding:8px 10px}
+.mnav a{flex:1;display:flex;align-items:center;justify-content:center;gap:8px;color:#B8C4D3;text-decoration:none;font-size:14px;font-weight:600;min-height:44px;border-radius:8px}
+.mnav a.on{background:var(--blue);color:#fff}
+.mnav .ic{width:20px;height:20px}
+.main{padding:14px 12px 24px}
+h1{font-size:24px}
+.topr{gap:10px}.clock{padding-left:10px}.clock .t{font-size:20px}
+.hsi{padding:12px 16px}.hsi .v{font-size:26px}
+.hwrap{margin:0 -12px -18px}
+.card{padding:16px 14px}
+.dnav{width:100%}.dnav input{flex:1;min-width:0}
+.hstrip{grid-template-columns:1fr 1fr}
+.hsi{border-left:0;border-top:1px solid var(--line)}.hsi:nth-child(-n+2){border-top:0}.hsi:nth-child(even){border-left:1px solid var(--line)}
+.htab th:nth-child(n+3):nth-child(-n+8),.htab td:nth-child(n+3):nth-child(-n+8){display:none}
+.cbar{display:none}
+.htab td,.htab th{padding-left:8px;padding-right:8px}.htab th:first-child,.htab td:first-child{padding-left:14px}.htab th:last-child,.htab td:last-child{padding-right:14px}
+.chip{margin-left:6px}
+}
 #dTrack{height:22px;border-radius:6px}
 #dayMain .tile{gap:12px;padding:16px}#dayMain .tile .ic{width:42px;height:42px}#dayMain .tile .v{font-size:34px}#dayMain .tile .v small{font-size:13px;display:block;margin:0}#dayMain .tile .s{font-size:13px}
 .lg{display:flex;gap:14px;flex-wrap:wrap;font-size:12px;color:var(--mut);margin-top:8px}.lg i{display:inline-block;width:10px;height:10px;border-radius:3px;margin-right:5px}
@@ -175,6 +195,11 @@ rect.hz{fill:transparent}rect.hz[data-d]{cursor:pointer}rect.hz:hover{fill:rgba(
   <div class="sp"></div>
   <a href="#" id="signout"><svg class="ic"><use href="#i-out"/></svg>Sign out</a>
   <small>Crate Counter · Sachet Packing Line</small>
+</nav>
+<nav class="mnav" aria-label="Main (mobile)">
+  <a class="on" id="mNavLive" href="#"><svg class="ic"><use href="#i-home"/></svg>Overview</a>
+  <a id="mNavHist" href="#history"><svg class="ic"><use href="#i-hist"/></svg>History</a>
+  <a id="mSign" href="#"><svg class="ic"><use href="#i-out"/></svg>Sign out</a>
 </nav>
 
 <main class="main" id="liveMain">
@@ -552,6 +577,7 @@ function route() {
   $('app').classList.toggle('hist', hist || day);
   $('liveMain').hidden = hist || day; $('histMain').hidden = !hist; $('dayMain').hidden = !day;
   $('navLive').classList.toggle('on', !(hist || day)); $('navHist').classList.toggle('on', hist || day);
+  $('mNavLive').classList.toggle('on', !(hist || day)); $('mNavHist').classList.toggle('on', hist || day);
   tip.hidden = true; scrollTo(0, 0);
   if (hist && !H.loaded) loadHist();
   if (day) { const t = Date.parse(m[1] + 'T00:00:00+05:30'); if (isNaN(t)) location.hash = '#history'; else loadDay(t); }
@@ -617,7 +643,8 @@ async function loadHist() {
   finally { H.busy = false; if (!H.loaded) $('hLoaded').textContent = ''; }
 }
 function barSvg(items, every, col) {
-  const W = 800, Hh = 240, L = 52, R = 10, T = 12, B = 30, pw = W - L - R, ph = Hh - T - B;
+  const W = innerWidth < 700 ? 360 : 800, Hh = 240, L = 52, R = 10, T = 12, B = 30, pw = W - L - R, ph = Hh - T - B;
+  every = Math.max(every, Math.ceil(items.length / (W < 500 ? 6 : 24)));
   const st = niceStep(Math.max(1, ...items.map(i => i.v)) * 1.08), ym = st * 4, sx = pw / items.length, Y = v => T + ph - v / ym * ph;
   let s = `<svg viewBox="0 0 ${W} ${Hh}" role="img">`;
   for (let i = 0; i <= 4; i++) { const y = Y(i * st); s += `<line x1="${L}" x2="${W - R}" y1="${y}" y2="${y}" stroke="#E3E8EF"/><text x="${L - 8}" y="${y + 4}" text-anchor="end" font-size="12" fill="#5B6B80">${nf(i * st)}</text>`; }
@@ -693,13 +720,14 @@ async function loadDay(t) {
   } catch (e) { if (tok === DY.tok) { dErr('Could not load this day: ' + (e.message || e)); $('dLoaded').textContent = ''; } }
 }
 function cumSvg(hours, a, b, upto, green) {
-  const W = 800, Hh = 240, L = 52, R = 10, T = 12, B = 30, pw = W - L - R, ph = Hh - T - B, n = b - a, sx = pw / n, spt = CONFIG.SACHETS_PER_TRAY;
+  const W = innerWidth < 700 ? 360 : 800, Hh = 240, L = 52, R = 10, T = 12, B = 30, pw = W - L - R, ph = Hh - T - B, n = b - a, sx = pw / n, spt = CONFIG.SACHETS_PER_TRAY;
   const cs = []; let cum = 0;
   for (let i = 0; i < n && a + i <= upto; i++) { cum += hours[a + i]; cs.push(cum); }
   const st = niceStep(Math.max(1, cum) * 1.05), ym = st * 4, Y = v => T + ph - v / ym * ph;
   let s = `<svg viewBox="0 0 ${W} ${Hh}" role="img">`;
   for (let i = 0; i <= 4; i++) { const y = Y(i * st); s += `<line x1="${L}" x2="${W - R}" y1="${y}" y2="${y}" stroke="#E3E8EF"/><text x="${L - 8}" y="${y + 4}" text-anchor="end" font-size="12" fill="#5B6B80">${nf(i * st)}</text>`; }
-  for (let i = 0; i < n; i++) s += `<text x="${L + i * sx + sx / 2}" y="${Hh - 8}" text-anchor="middle" font-size="12" fill="#5B6B80">${pad(a + i)}:00</text>`;
+  const ev = W < 500 ? Math.ceil(n / 6) : 1;
+  for (let i = 0; i < n; i += ev) s += `<text x="${L + i * sx + sx / 2}" y="${Hh - 8}" text-anchor="middle" font-size="12" fill="#5B6B80">${pad(a + i)}:00</text>`;
   const P = [`${L},${Y(0)}`].concat(cs.map((v, i) => `${L + (i + 1) * sx},${Y(v)}`));
   s += `<path d="M${P.join(' L')} L${L + cs.length * sx},${Y(0)} Z" fill="${green ? '#2DB36A' : '#3B82F0'}" opacity=".18"/><polyline points="${P.join(' ')}" fill="none" stroke="${green ? '#1FA463' : '#1E6FEB'}" stroke-width="3"/>`;
   cs.forEach((v, i) => { s += `<rect class="hz" data-tip="<b>By ${pad(a + i + 1)}:00</b><br>${nf(v)} crates so far (${nf(v * spt)} sachets)<br>${nf(hours[a + i])} in this hour" x="${L + i * sx}" y="${T}" width="${sx}" height="${ph}"/>`; });
@@ -746,6 +774,7 @@ $('dPrev').onclick = () => { location.hash = '#day-' + isoDay(DY.t - DAY); };
 $('dNext').onclick = () => { if (DY.t < dayStart(Date.now())) location.hash = '#day-' + isoDay(DY.t + DAY); };
 $('dPick').onchange = ev => { if (ev.target.value) location.hash = '#day-' + ev.target.value; };
 $('dRefresh').onclick = () => loadDay(DY.t);
+$('mSign').onclick = ev => { ev.preventDefault(); $('signout').click(); };
 route();
 
 </script>
