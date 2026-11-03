@@ -127,9 +127,14 @@ rect.hz{fill:transparent}rect.hz[data-d]{cursor:pointer}rect.hz:hover{fill:rgba(
 .dnav button,.dnav input,.dnav a{font:inherit;font-size:14px;min-height:40px;border:1px solid var(--line);background:#fff;border-radius:8px;padding:8px 14px;color:var(--ink);cursor:pointer;text-decoration:none;display:inline-flex;align-items:center}
 .dnav button:disabled{opacity:.4;cursor:default}
 .mnav{display:none}
+.hamb{display:none}
+.top{position:relative}
 @media(max-width:900px){
-.mnav{display:flex;gap:6px;position:sticky;top:0;z-index:20;background:var(--nav);padding:8px 10px}
-.mnav a{flex:1;display:flex;align-items:center;justify-content:center;gap:8px;color:#B8C4D3;text-decoration:none;font-size:14px;font-weight:600;min-height:44px;border-radius:8px}
+.hamb{display:flex;position:absolute;top:0;right:0;width:44px;height:44px;align-items:center;justify-content:center;border:1px solid var(--line);background:#fff;border-radius:10px;color:var(--ink);cursor:pointer;padding:0}
+.top>div:first-of-type{padding-right:52px}
+.mnav{position:fixed;right:12px;top:60px;z-index:60;flex-direction:column;gap:4px;min-width:200px;background:var(--nav);padding:8px;border-radius:12px;box-shadow:0 8px 24px rgba(0,0,0,.28)}
+.mnav.open{display:flex}
+.mnav a{display:flex;align-items:center;gap:12px;color:#B8C4D3;text-decoration:none;font-size:15px;font-weight:600;min-height:44px;padding:0 12px;border-radius:8px}
 .mnav a.on{background:var(--blue);color:#fff}
 .mnav .ic{width:20px;height:20px}
 .main{padding:14px 12px 24px}
@@ -170,6 +175,7 @@ h1{font-size:24px}
 <symbol id="i-db" viewBox="0 0 24 24"><ellipse cx="12" cy="6" rx="7.5" ry="3"/><path d="M4.5 6v12c0 1.7 3.4 3 7.5 3s7.5-1.3 7.5-3V6M4.5 12c0 1.7 3.4 3 7.5 3s7.5-1.3 7.5-3"/></symbol>
 <symbol id="i-wifi" viewBox="0 0 24 24"><path d="M3 9.5a14 14 0 0 1 18 0M6 13a9.5 9.5 0 0 1 12 0M9 16.5a5 5 0 0 1 6 0"/><circle cx="12" cy="19.5" r=".8"/></symbol>
 <symbol id="i-box" viewBox="0 0 24 24"><path d="M3.5 8l8.5-4.5L20.5 8v8.5L12 21l-8.5-4.5z"/><path d="M3.5 8L12 12.5 20.5 8M12 12.5V21"/></symbol>
+<symbol id="i-menu" viewBox="0 0 24 24"><path d="M4 7h16M4 12h16M4 17h16"/></symbol>
 <symbol id="i-out" viewBox="0 0 24 24"><path d="M9 4H5.5a1 1 0 0 0-1 1v14a1 1 0 0 0 1 1H9M15 8l4 4-4 4M19 12H9"/></symbol>
 </svg>
 
@@ -208,7 +214,7 @@ h1{font-size:24px}
       <h1>Crate Counter</h1>
       <div class="sub">Sachet Packing Line · <span id="spt">24</span> Sachets per Crate <span id="demoBadge" class="badge" hidden>DEMO DATA</span></div>
     </div>
-    <div class="topr">
+    <button class="hamb" type="button" aria-label="Menu" aria-expanded="false"><svg class="ic"><use href="#i-menu"/></svg></button><div class="topr">
       <span id="pill" class="pill"><i class="dot"></i><span id="pillTxt">Connecting…</span></span>
       <div class="clock"><div class="d" id="date"></div><div class="t" id="time"></div></div>
     </div>
@@ -270,7 +276,7 @@ h1{font-size:24px}
     <button id="hRefresh" type="button">Reload</button>
   </div>
   <header class="top">
-    <div><h1>History</h1><div class="sub">Sachet Packing Line · <span id="hSpt"></span> sachets per crate · <span id="hRangeTxt"></span></div></div>
+    <button class="hamb" type="button" aria-label="Menu" aria-expanded="false"><svg class="ic"><use href="#i-menu"/></svg></button><div><h1>History</h1><div class="sub">Sachet Packing Line · <span id="hSpt"></span> sachets per crate · <span id="hRangeTxt"></span></div></div>
     <div class="hctl">
       <div class="tabs seg" id="hTabs"><button type="button" data-r="7" class="on">7 days</button><button type="button" data-r="14">14 days</button><button type="button" data-r="30">30 days</button><button type="button" data-r="c">Custom</button></div>
       <span id="hCust" hidden><input id="hFrom" type="date" aria-label="From"> to <input id="hTo" type="date" aria-label="To"> <button class="go" id="hApply" type="button">Show</button></span>
@@ -288,7 +294,7 @@ h1{font-size:24px}
     <button id="dRefresh" type="button">Reload</button>
   </div>
   <header class="top">
-    <div><h1 id="dTitle">Day</h1><div class="sub">Sachet Packing Line · <span id="dSpt"></span> Sachets per Crate <span id="dToday" class="badge" hidden>TODAY · SO FAR</span></div></div>
+    <button class="hamb" type="button" aria-label="Menu" aria-expanded="false"><svg class="ic"><use href="#i-menu"/></svg></button><div><h1 id="dTitle">Day</h1><div class="sub">Sachet Packing Line · <span id="dSpt"></span> Sachets per Crate <span id="dToday" class="badge" hidden>TODAY · SO FAR</span></div></div>
     <div class="dnav"><a href="#history">← All days</a><button id="dPrev" type="button" aria-label="Previous day">‹</button><input id="dPick" type="date" aria-label="Pick a day"><button id="dNext" type="button" aria-label="Next day">›</button></div>
   </header>
   <div id="dErr" class="err" hidden></div>
@@ -775,6 +781,22 @@ $('dNext').onclick = () => { if (DY.t < dayStart(Date.now())) location.hash = '#
 $('dPick').onchange = ev => { if (ev.target.value) location.hash = '#day-' + ev.target.value; };
 $('dRefresh').onclick = () => loadDay(DY.t);
 $('mSign').onclick = ev => { ev.preventDefault(); $('signout').click(); };
+
+// ---------- mobile 3-bar menu ----------
+const mnav = document.querySelector('.mnav');
+function closeMenu() { mnav.classList.remove('open'); document.querySelectorAll('.hamb').forEach(b => b.setAttribute('aria-expanded', 'false')); }
+document.addEventListener('click', e => {
+  const b = e.target.closest('.hamb');
+  if (b) {
+    const open = !mnav.classList.contains('open'); closeMenu();
+    if (open) { mnav.style.top = (b.getBoundingClientRect().bottom + 6) + 'px'; mnav.classList.add('open'); b.setAttribute('aria-expanded', 'true'); }
+    return;
+  }
+  if (!e.target.closest('.mnav') || e.target.closest('.mnav a')) closeMenu();
+});
+addEventListener('hashchange', closeMenu);
+addEventListener('scroll', closeMenu, { passive: true });
+
 route();
 
 </script>
