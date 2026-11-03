@@ -86,6 +86,49 @@ h1{margin:0;font-size:28px;font-weight:600;line-height:1.1}
 .login input{font:inherit;font-size:16px;padding:11px 12px;border:1px solid var(--line);border-radius:8px;width:100%;margin-top:4px}
 .login button{font:inherit;font-weight:600;font-size:16px;padding:12px;min-height:46px;border:0;border-radius:8px;background:var(--blue);color:#fff;cursor:pointer}
 @media(max-width:900px){.app{grid-template-columns:1fr}.nav{display:none}.tile .v{font-size:36px}}
+
+/* ---- History pages: Overview colours, different structure + banner ---- */
+.hbanner{display:flex;flex-wrap:wrap;gap:12px;align-items:center;justify-content:space-between;color:#fff;border-radius:12px;padding:12px 18px;background:linear-gradient(90deg,#0F1B2D,#1D3150)}
+.hb1{display:flex;align-items:center;gap:9px;font-weight:700;letter-spacing:.1em;font-size:13px}
+.hb1::before{content:"";width:9px;height:9px;border-radius:50%;background:#F2A93B}
+.hb2{font-size:13px;opacity:.8;margin-top:2px}
+.hbanner button{font:inherit;font-size:13px;font-weight:600;min-height:38px;padding:7px 16px;border:1px solid rgba(255,255,255,.35);background:rgba(255,255,255,.08);color:#fff;border-radius:8px;cursor:pointer}
+.hbanner button:hover{background:rgba(255,255,255,.16)}
+.hctl{display:flex;flex-wrap:wrap;gap:10px;align-items:center}
+.hctl input{font:inherit;font-size:14px;padding:8px 10px;border:1px solid var(--line);border-radius:8px;min-height:40px;background:#fff}
+.hctl .go{font:inherit;font-size:14px;font-weight:600;min-height:40px;padding:8px 16px;border:0;border-radius:8px;background:var(--blue);color:#fff;cursor:pointer}
+.seg{gap:0;border:1px solid var(--line);border-radius:10px;overflow:hidden;background:#fff}
+.seg button{border:0!important;border-radius:0!important;border-right:1px solid var(--line)!important}
+.seg button:last-child{border-right:0!important}
+.hstrip{display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));padding:0;overflow:hidden}
+.hsi{padding:16px 22px;border-left:1px solid var(--line)}
+.hsi:first-child{border-left:0}
+.hsi .lb{font-size:12px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;color:var(--mut)}
+.hsi .v{font-size:30px;font-weight:700;line-height:1.2;margin-top:2px}
+.hsi .s{font-size:13px;color:var(--mut)}
+.hwrap{overflow-x:auto;margin:0 -20px -18px;padding:0 0 4px}
+.htab{width:100%;border-collapse:collapse;font-size:14px}
+.htab th{text-align:left;font-size:11px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;color:var(--mut);background:#F7F9FC;padding:10px 10px;border-top:1px solid var(--line);border-bottom:1px solid var(--line);white-space:nowrap}
+.htab td{padding:11px 10px;border-bottom:1px solid var(--line);white-space:nowrap}
+.htab th:first-child,.htab td:first-child{padding-left:20px}
+.htab th:last-child,.htab td:last-child{padding-right:20px}
+.htab .r{text-align:right}
+.htab tr[data-d]{cursor:pointer}.htab tr[data-d]:hover{background:#F5F8FD}
+.htab tr.sel{background:#EAF2FF!important;box-shadow:inset 3px 0 0 var(--blue)}
+.htab tr.nd td{color:#9AA5B4}
+.cb{display:flex;align-items:center;justify-content:flex-end;gap:10px}
+.cbar{width:56px;height:8px;background:#E6EDF7;border-radius:4px;overflow:hidden}.cbar i{display:block;height:100%;background:#3B82F0;border-radius:4px}
+.chip{background:#FFF0D2;color:#8A5A12;font-size:11px;font-weight:600;padding:2px 8px;border-radius:99px;margin-left:8px;vertical-align:1px}
+.olink{display:inline-block;padding:5px 12px;border:1px solid #C9D6EA;border-radius:8px;background:#fff;font-size:13px;font-weight:600;color:var(--blue);text-decoration:none}
+.olink:hover{background:#E6F0FF}
+#tip{position:fixed;z-index:50;background:#0F1B2D;color:#fff;font-size:13px;line-height:1.45;padding:8px 11px;border-radius:8px;pointer-events:none;max-width:270px;box-shadow:0 4px 14px rgba(0,0,0,.25)}
+rect.hz{fill:transparent}rect.hz[data-d]{cursor:pointer}rect.hz:hover{fill:rgba(30,111,235,.10)}
+.dnav{display:flex;flex-wrap:wrap;gap:8px;align-items:center}
+.dnav button,.dnav input,.dnav a{font:inherit;font-size:14px;min-height:40px;border:1px solid var(--line);background:#fff;border-radius:8px;padding:8px 14px;color:var(--ink);cursor:pointer;text-decoration:none;display:inline-flex;align-items:center}
+.dnav button:disabled{opacity:.4;cursor:default}
+#dTrack{height:22px;border-radius:6px}
+#dayMain .tile{gap:12px;padding:16px}#dayMain .tile .ic{width:42px;height:42px}#dayMain .tile .v{font-size:34px}#dayMain .tile .v small{font-size:13px;display:block;margin:0}#dayMain .tile .s{font-size:13px}
+.lg{display:flex;gap:14px;flex-wrap:wrap;font-size:12px;color:var(--mut);margin-top:8px}.lg i{display:inline-block;width:10px;height:10px;border-radius:3px;margin-right:5px}
 </style>
 </head>
 <body>
@@ -124,9 +167,9 @@ h1{margin:0;font-size:28px;font-weight:600;line-height:1.1}
 <div id="app" class="app" hidden>
 <nav class="nav" aria-label="Main">
   <div class="brand"><svg class="ic"><use href="#i-tray"/></svg><span>Crate Counter</span></div>
-  <a class="on" href="#"><svg class="ic"><use href="#i-home"/></svg>Overview</a>
+  <a class="on" id="navLive" href="#"><svg class="ic"><use href="#i-home"/></svg>Overview</a>
   <a class="off" href="#" aria-disabled="true"><svg class="ic"><use href="#i-bars"/></svg>Production</a>
-  <a class="off" href="#" aria-disabled="true"><svg class="ic"><use href="#i-hist"/></svg>History</a>
+  <a id="navHist" href="#history"><svg class="ic"><use href="#i-hist"/></svg>History</a>
   <a class="off" href="#" aria-disabled="true"><svg class="ic"><use href="#i-bell"/></svg>Events</a>
   <a class="off" href="#" aria-disabled="true"><svg class="ic"><use href="#i-gear"/></svg>Settings</a>
   <div class="sp"></div>
@@ -134,7 +177,7 @@ h1{margin:0;font-size:28px;font-weight:600;line-height:1.1}
   <small>Crate Counter · Sachet Packing Line</small>
 </nav>
 
-<main class="main">
+<main class="main" id="liveMain">
   <header class="top">
     <div>
       <h1>Crate Counter</h1>
@@ -196,6 +239,73 @@ h1{margin:0;font-size:28px;font-weight:600;line-height:1.1}
     </div>
   </section>
 </main>
+<main class="main" id="histMain" hidden>
+  <div class="hbanner">
+    <div><div class="hb1">HISTORY · RECORDED DATA</div><div class="hb2">Not live. These figures do not update by themselves. <span id="hLoaded"></span></div></div>
+    <button id="hRefresh" type="button">Reload</button>
+  </div>
+  <header class="top">
+    <div><h1>History</h1><div class="sub">Sachet Packing Line · <span id="hSpt"></span> sachets per crate · <span id="hRangeTxt"></span></div></div>
+    <div class="hctl">
+      <div class="tabs seg" id="hTabs"><button type="button" data-r="7" class="on">7 days</button><button type="button" data-r="14">14 days</button><button type="button" data-r="30">30 days</button><button type="button" data-r="c">Custom</button></div>
+      <span id="hCust" hidden><input id="hFrom" type="date" aria-label="From"> to <input id="hTo" type="date" aria-label="To"> <button class="go" id="hApply" type="button">Show</button></span>
+    </div>
+  </header>
+  <div id="hErr" class="err" hidden></div>
+  <section class="card hstrip" id="hKpis"></section>
+  <section class="card"><div class="chead"><h2>Crates per day</h2><span class="sub">Click a bar or a row to see that day by hour</span></div><div id="hChart"></div></section>
+  <section class="card"><h2>Daily summary</h2><div class="hwrap"><table class="htab"><thead><tr><th>Date</th><th class="r">Crates</th><th class="r">Sachets</th><th class="r">First crate</th><th class="r">Last crate</th><th class="r">Runtime</th><th class="r">Idle</th><th class="r">Avg / hr</th><th></th></tr></thead><tbody id="hRows"></tbody></table></div></section>
+  <section class="card"><div class="chead"><h2 id="hDetTitle">Hourly</h2><a id="hDetOpen" class="olink" href="#" hidden>Open full day report →</a></div><div id="hDetail"></div></section>
+</main>
+<main class="main" id="dayMain" hidden>
+  <div class="hbanner">
+    <div><div class="hb1">HISTORY · SINGLE DAY REPORT</div><div class="hb2">Recorded data, not live. <span id="dLoaded"></span></div></div>
+    <button id="dRefresh" type="button">Reload</button>
+  </div>
+  <header class="top">
+    <div><h1 id="dTitle">Day</h1><div class="sub">Sachet Packing Line · <span id="dSpt"></span> Sachets per Crate <span id="dToday" class="badge" hidden>TODAY · SO FAR</span></div></div>
+    <div class="dnav"><a href="#history">← All days</a><button id="dPrev" type="button" aria-label="Previous day">‹</button><input id="dPick" type="date" aria-label="Pick a day"><button id="dNext" type="button" aria-label="Next day">›</button></div>
+  </header>
+  <div id="dErr" class="err" hidden></div>
+
+  <section class="kpis">
+    <div class="tile t1"><svg class="ic"><use href="#i-tray"/></svg><div><div class="lb">Total Crates</div><div class="v" id="dCrates">0</div><div class="s" id="dCratesS">&nbsp;</div></div></div>
+    <div class="tile t2"><svg class="ic"><use href="#i-sachet"/></svg><div><div class="lb">Total Sachets</div><div class="v" id="dSach">0</div><div class="s" id="dSachS">&nbsp;</div></div></div>
+    <div class="tile t3"><svg class="ic"><use href="#i-gauge"/></svg><div><div class="lb">Average Rate</div><div class="v"><span id="dRate">–</span><small>crates / hour</small></div><div class="s" id="dRateS">&nbsp;</div></div></div>
+    <div class="tile t4"><svg class="ic"><use href="#i-clock"/></svg><div><div class="lb">Last Crate</div><div class="v" id="dLast">–</div><div class="s" id="dLastS">&nbsp;</div></div></div>
+  </section>
+
+  <section class="row2">
+    <div class="card stat wait" id="dStCard"><svg class="ic"><use href="#i-cal"/></svg><div><div class="sub" style="font-weight:600;color:var(--ink)">Day Status</div><div class="big" id="dStTxt">–</div><div class="sub" id="dStSub">&nbsp;</div></div></div>
+    <div class="card stat"><svg class="ic" style="color:var(--ink)"><use href="#i-clock"/></svg><div><div class="sub" style="font-weight:600;color:var(--ink)">Day's Runtime</div><div class="big" id="dRt">–</div><div class="sub">First crate <b id="dRtFirst">–</b> &nbsp;|&nbsp; Last crate <b id="dRtLast">–</b></div></div></div>
+    <div class="card">
+      <div class="stat"><svg class="ic" style="color:var(--ink);width:36px;height:36px"><use href="#i-cal"/></svg><div><div class="sub" style="font-weight:600;color:var(--ink)">Scheduled Production Window</div><div class="big" style="font-size:24px" id="dWnTxt">07:00 – 21:00</div></div></div>
+      <div class="track" id="dTrack"></div>
+      <div class="ticks"><span>00:00</span><span id="dWnS">07:00</span><span id="dWnE">21:00</span><span>24:00</span></div>
+      <div class="lg"><span><i style="background:#CFE9DB"></i>Window</span><span><i style="background:#1E6FEB"></i>Production</span><span><i style="background:#F2A93B"></i>Idle</span></div>
+    </div>
+  </section>
+
+  <section class="row3">
+    <div class="card">
+      <div class="chead"><h2>Production Trend</h2><div class="tabs"><button id="dTbH" class="on" type="button">Crates / Hour</button><button id="dTbC" type="button">Cumulative</button></div></div>
+      <div id="dChart"></div>
+    </div>
+    <div class="card">
+      <h2>Day Summary</h2>
+      <div class="li"><svg class="ic"><use href="#i-gauge"/></svg><span class="k">Average rate</span><b id="dAvg">–</b></div>
+      <div class="li"><svg class="ic"><use href="#i-bars"/></svg><span class="k">Peak hour<span class="m" id="dPeakM"></span></span><b id="dPeak">–</b></div>
+      <div class="li"><svg class="ic"><use href="#i-clock"/></svg><span class="k">Production duration<span class="m" id="dDurM"></span></span><b id="dDur">–</b></div>
+      <div class="li"><svg class="ic"><use href="#i-pause"/></svg><span class="k">Detected idle time<span class="m" id="dIdleM"></span></span><b id="dIdle">0m</b></div>
+    </div>
+  </section>
+
+  <section class="row4">
+    <div class="card"><h2>Idle Periods</h2><div id="dIdleList"></div></div>
+  </section>
+</main>
+
+
 </div>
 
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.45.4/dist/umd/supabase.js"></script>
@@ -432,6 +542,212 @@ function startDemo() {
   setInterval(() => { status = { ...status, last_heartbeat: new Date().toISOString() }; }, 20000);
 }
 boot();
+
+// ================= HISTORY PAGE =================
+const H = { days: [], sel: null, range: 7, from: 0, to: 0, loaded: 0, busy: false };
+function hErr(m) { const e = $('hErr'); e.hidden = !m; e.textContent = m || ''; }
+function route() {
+  if ($('app').hidden) return;
+  const hs = location.hash, m = /^#day-(\d{4}-\d\d-\d\d)$/.exec(hs), hist = hs === '#history', day = !!m;
+  $('app').classList.toggle('hist', hist || day);
+  $('liveMain').hidden = hist || day; $('histMain').hidden = !hist; $('dayMain').hidden = !day;
+  $('navLive').classList.toggle('on', !(hist || day)); $('navHist').classList.toggle('on', hist || day);
+  tip.hidden = true; scrollTo(0, 0);
+  if (hist && !H.loaded) loadHist();
+  if (day) { const t = Date.parse(m[1] + 'T00:00:00+05:30'); if (isNaN(t)) location.hash = '#history'; else loadDay(t); }
+}
+addEventListener('hashchange', route);
+{ const _s = startLive; startLive = function () { _s(); route(); }; }
+
+function demoHist(from, to) {
+  const out = [], now = Date.now();
+  for (let d = dayStart(from); d < to; d += DAY) {
+    const s = d + 7 * HOUR + Math.floor(Math.random() * 40) * MIN, e = Math.min(now, d + (19 + Math.random() * 2) * HOUR), sk = s + Math.random() * (e - s);
+    for (let t = s; t < e; t += MIN) { if (t > sk && t < sk + 12 * MIN) continue;
+      out.push({ minute_ts: new Date(t).toISOString(), trays: 6 + Math.floor(Math.random() * 5), last_tray_ts: new Date(t + 50000).toISOString() }); }
+  }
+  return out;
+}
+async function fetchRecs(from, to) {
+  if (DEMO) return demoHist(from, to);
+  const recs = [];
+  for (let off = 0; ;) {
+    const { data, error } = await sb.from('tray_minutes').select('minute_ts,trays,last_tray_ts')
+      .gte('minute_ts', new Date(from).toISOString()).lt('minute_ts', new Date(to).toISOString()).order('minute_ts').range(off, off + 999);
+    if (error) throw new Error(error.message);
+    recs.push(...data); if (data.length < 1000) break; off += 1000;
+  }
+  return recs;
+}
+function aggDays(recs) {
+  const by = new Map();
+  for (const r of recs) {
+    const t = Date.parse(r.minute_ts), d = dayStart(t), n = Number(r.trays), l = Date.parse(r.last_tray_ts);
+    let x = by.get(d); if (!x) { x = { d, total: 0, hours: new Array(24).fill(0), first: null, last: 0, idle: 0, idles: [], pl: null }; by.set(d, x); }
+    x.total += n; x.hours[Math.floor(((t + IST) % DAY) / HOUR)] += n;
+    if (x.first === null) x.first = t;
+    if (x.pl !== null && t - x.pl > CONFIG.IDLE_MIN * MIN) { x.idle += t - x.pl; x.idles.push({ from: x.pl, to: t }); }
+    x.pl = l; x.last = Math.max(x.last, l);
+  }
+  return by;
+}
+function finishDay(d, by) {
+  const x = by.get(d) || { d, total: 0, hours: new Array(24).fill(0), first: null, last: 0, idle: 0, idles: [] };
+  x.run = x.total ? Math.max(0, x.last - x.first - x.idle) : 0;
+  x.avg = x.run > 3 * MIN ? x.total / (x.run / HOUR) : 0;
+  return x;
+}
+async function loadHist() {
+  if (H.busy) return; H.busy = true; hErr(''); $('hLoaded').textContent = 'Loading…';
+  try {
+    const today = dayStart(Date.now()); let from, to;
+    if (H.range === 'c') {
+      const a = $('hFrom').value, b = $('hTo').value;
+      if (!a || !b || a > b) { hErr('Pick a valid From and To date.'); return; }
+      from = Date.parse(a + 'T00:00:00+05:30'); to = Date.parse(b + 'T00:00:00+05:30') + DAY;
+      if ((to - from) / DAY > 92) { hErr('Please choose 92 days or fewer.'); return; }
+    } else { from = today - (H.range - 1) * DAY; to = today + DAY; }
+    const recs = await fetchRecs(from, to);
+    const by = aggDays(recs), days = [];
+    for (let d = dayStart(from); d < to; d += DAY) days.push(finishDay(d, by));
+    H.days = days; H.from = dayStart(from); H.to = to; H.loaded = Date.now();
+    if (!days.some(x => x.d === H.sel)) { const a = days.filter(x => x.total); H.sel = a.length ? a[a.length - 1].d : null; }
+    renderHist();
+  } catch (e) { hErr('Could not load history: ' + (e.message || e)); }
+  finally { H.busy = false; if (!H.loaded) $('hLoaded').textContent = ''; }
+}
+function barSvg(items, every, col) {
+  const W = 800, Hh = 240, L = 52, R = 10, T = 12, B = 30, pw = W - L - R, ph = Hh - T - B;
+  const st = niceStep(Math.max(1, ...items.map(i => i.v)) * 1.08), ym = st * 4, sx = pw / items.length, Y = v => T + ph - v / ym * ph;
+  let s = `<svg viewBox="0 0 ${W} ${Hh}" role="img">`;
+  for (let i = 0; i <= 4; i++) { const y = Y(i * st); s += `<line x1="${L}" x2="${W - R}" y1="${y}" y2="${y}" stroke="#E3E8EF"/><text x="${L - 8}" y="${y + 4}" text-anchor="end" font-size="12" fill="#5B6B80">${nf(i * st)}</text>`; }
+  items.forEach((it, k) => {
+    const bw = Math.max(2, sx * .7), x = L + k * sx + (sx - bw) / 2, y = Y(it.v);
+    s += `<rect x="${x}" y="${y}" width="${bw}" height="${T + ph - y}" rx="2" fill="${it.on ? '#14213D' : (col || '#3B82F0')}"/>` +
+      `<rect class="hz" ${it.d ? `data-d="${it.d}" ` : ''}data-tip="${it.tip}" x="${L + k * sx}" y="${T}" width="${sx}" height="${ph}"/>`;
+    if (k % every === 0) s += `<text x="${L + k * sx + sx / 2}" y="${Hh - 8}" text-anchor="middle" font-size="12" fill="#5B6B80">${it.lab}</text>`;
+  });
+  return s + '</svg>';
+}
+function renderHist() {
+  const D = H.days, spt = CONFIG.SACHETS_PER_TRAY, today = dayStart(Date.now());
+  const act = D.filter(x => x.total), tot = act.reduce((a, x) => a + x.total, 0);
+  const best = act.reduce((b, x) => !b || x.total > b.total ? x : b, null);
+  $('hSpt').textContent = spt; $('hRangeTxt').textContent = dateStr(H.from) + ' → ' + dateStr(H.to - DAY);
+  $('hLoaded').textContent = 'Loaded at ' + hms(H.loaded) + '.';
+  $('hKpis').innerHTML =
+    `<div class="hsi"><div class="lb">Total crates</div><div class="v">${nf(tot)}</div><div class="s">${nf(tot * spt)} sachets</div></div>` +
+    `<div class="hsi"><div class="lb">Best day</div><div class="v">${best ? nf(best.total) : '–'}</div><div class="s">${best ? dateStr(best.d) : 'no data'}</div></div>` +
+    `<div class="hsi"><div class="lb">Average per day</div><div class="v">${act.length ? nf(tot / act.length) : '–'}</div><div class="s">crates, days with data only</div></div>` +
+    `<div class="hsi"><div class="lb">Days with data</div><div class="v">${act.length}</div><div class="s">of ${D.length} days</div></div>`;
+  $('hChart').innerHTML = barSvg(D.map(x => { const d = ist(x.d); return { v: x.total, d: x.d, on: x.d === H.sel, lab: pad(d.getUTCDate()) + ' ' + MN[d.getUTCMonth()],
+    tip: '<b>' + dateStr(x.d) + '</b>' + (x.d === today ? ' (so far)' : '') + (x.total ? '<br>' + nf(x.total) + ' crates · ' + nf(x.total * spt) + ' sachets<br>' + hm(x.first) + '–' + hm(x.last) + ' · runtime ' + dur(x.run) + '<br>idle ' + dur(x.idle) + ' · avg ' + (x.avg ? nf(x.avg) : '–') + ' crates/hr' : '<br>no data') }; }), Math.ceil(D.length / 12));
+  $('hRows').innerHTML = D.slice().reverse().map(x => `<tr data-d="${x.d}" class="${x.d === H.sel ? 'sel' : ''}${x.total ? '' : ' nd'}"><td>${dateStr(x.d)}${x.d === today ? '<span class="chip">Today</span>' : ''}</td>` +
+    (x.total ? `<td class="r"><div class="cb"><span class="cbar"><i style="width:${x.total / best.total * 100}%"></i></span><b>${nf(x.total)}</b></div></td><td class="r">${nf(x.total * spt)}</td><td class="r">${hm(x.first)}</td><td class="r">${hm(x.last)}</td><td class="r">${dur(x.run)}</td><td class="r">${dur(x.idle)}</td><td class="r">${x.avg ? nf(x.avg) : '–'}</td><td class="r"><a class="olink" href="#day-${isoDay(x.d)}">Open ›</a></td>`
+      : '<td class="r" colspan="8">no data</td>') + '</tr>').join('');
+  const sel = D.find(x => x.d === H.sel);
+  $('hDetOpen').hidden = !(sel && sel.total); if (sel) $('hDetOpen').href = '#day-' + isoDay(sel.d);
+  if (!sel || !sel.total) { $('hDetTitle').textContent = 'Hourly'; $('hDetail').innerHTML = '<div class="empty">Select a day with data to see it by hour.</div>'; return; }
+  let a = 24, b = 0; sel.hours.forEach((v, h) => { if (v > 0) { a = Math.min(a, h); b = Math.max(b, h + 1); } });
+  $('hDetTitle').textContent = 'Hourly – ' + dateStr(sel.d);
+  $('hDetail').innerHTML = barSvg(sel.hours.slice(a, b).map((v, i) => ({ v, lab: pad(a + i) + ':00', tip: '<b>' + pad(a + i) + ':00–' + pad(a + i + 1) + ':00</b><br>' + nf(v) + ' crates · ' + nf(v * spt) + ' sachets' })), 1);
+}
+$('histMain').addEventListener('click', e => {
+  const b = e.target.closest('[data-r]');
+  if (b) {
+    H.range = b.dataset.r === 'c' ? 'c' : Number(b.dataset.r);
+    document.querySelectorAll('#hTabs button').forEach(x => x.classList.toggle('on', x === b));
+    $('hCust').hidden = H.range !== 'c';
+    if (H.range === 'c') { const t = Date.now(); $('hTo').value = ist(t).toISOString().slice(0, 10); $('hFrom').value = ist(t - 6 * DAY).toISOString().slice(0, 10); }
+    else loadHist();
+    return;
+  }
+  const r = e.target.closest('[data-d]'); if (r) { H.sel = Number(r.dataset.d); renderHist(); }
+});
+$('hApply').onclick = loadHist; $('hRefresh').onclick = loadHist;
+
+// ================= TOOLTIP + SINGLE-DAY REPORT =================
+const isoDay = ms => ist(ms).toISOString().slice(0, 10);
+const tip = document.createElement('div'); tip.id = 'tip'; tip.hidden = true; document.body.appendChild(tip);
+function tipMove(e) {
+  const t = e.target.closest && e.target.closest('[data-tip]');
+  if (!t) { tip.hidden = true; return; }
+  tip.innerHTML = t.getAttribute('data-tip'); tip.hidden = false;
+  const w = tip.offsetWidth, hh = tip.offsetHeight; let x = e.clientX + 14, y = e.clientY + 14;
+  if (x + w > innerWidth - 8) x = e.clientX - w - 14; if (y + hh > innerHeight - 8) y = e.clientY - hh - 14;
+  tip.style.left = Math.max(4, x) + 'px'; tip.style.top = Math.max(4, y) + 'px';
+}
+for (const id of ['histMain', 'dayMain']) { const m = $(id); m.addEventListener('pointermove', tipMove); m.addEventListener('pointerdown', tipMove); m.addEventListener('pointerleave', () => { tip.hidden = true; }); }
+addEventListener('scroll', () => { tip.hidden = true; }, true);
+
+const DY = { t: 0, x: null, loaded: 0, tab: 'hour', tok: 0 };
+function dErr(m) { const e = $('dErr'); e.hidden = !m; e.textContent = m || ''; }
+async function loadDay(t) {
+  const tok = ++DY.tok; dErr(''); DY.t = t;
+  $('dTitle').textContent = dateStr(t); $('dPick').value = isoDay(t); $('dLoaded').textContent = 'Loading…';
+  $('dNext').disabled = t >= dayStart(Date.now()); $('dToday').hidden = t !== dayStart(Date.now());
+  try {
+    const recs = await fetchRecs(t, t + DAY);
+    if (tok !== DY.tok) return;
+    DY.x = finishDay(t, aggDays(recs)); DY.loaded = Date.now(); renderDay();
+  } catch (e) { if (tok === DY.tok) { dErr('Could not load this day: ' + (e.message || e)); $('dLoaded').textContent = ''; } }
+}
+function cumSvg(hours, a, b, upto, green) {
+  const W = 800, Hh = 240, L = 52, R = 10, T = 12, B = 30, pw = W - L - R, ph = Hh - T - B, n = b - a, sx = pw / n, spt = CONFIG.SACHETS_PER_TRAY;
+  const cs = []; let cum = 0;
+  for (let i = 0; i < n && a + i <= upto; i++) { cum += hours[a + i]; cs.push(cum); }
+  const st = niceStep(Math.max(1, cum) * 1.05), ym = st * 4, Y = v => T + ph - v / ym * ph;
+  let s = `<svg viewBox="0 0 ${W} ${Hh}" role="img">`;
+  for (let i = 0; i <= 4; i++) { const y = Y(i * st); s += `<line x1="${L}" x2="${W - R}" y1="${y}" y2="${y}" stroke="#E3E8EF"/><text x="${L - 8}" y="${y + 4}" text-anchor="end" font-size="12" fill="#5B6B80">${nf(i * st)}</text>`; }
+  for (let i = 0; i < n; i++) s += `<text x="${L + i * sx + sx / 2}" y="${Hh - 8}" text-anchor="middle" font-size="12" fill="#5B6B80">${pad(a + i)}:00</text>`;
+  const P = [`${L},${Y(0)}`].concat(cs.map((v, i) => `${L + (i + 1) * sx},${Y(v)}`));
+  s += `<path d="M${P.join(' L')} L${L + cs.length * sx},${Y(0)} Z" fill="${green ? '#2DB36A' : '#3B82F0'}" opacity=".18"/><polyline points="${P.join(' ')}" fill="none" stroke="${green ? '#1FA463' : '#1E6FEB'}" stroke-width="3"/>`;
+  cs.forEach((v, i) => { s += `<rect class="hz" data-tip="<b>By ${pad(a + i + 1)}:00</b><br>${nf(v)} crates so far (${nf(v * spt)} sachets)<br>${nf(hours[a + i])} in this hour" x="${L + i * sx}" y="${T}" width="${sx}" height="${ph}"/>`; });
+  return s + '</svg>';
+}
+function renderDay() {
+  const x = DY.x, d = DY.t, spt = CONFIG.SACHETS_PER_TRAY, now = Date.now(), isToday = d === dayStart(now), has = x.total > 0;
+  $('dSpt').textContent = spt; $('dLoaded').textContent = 'Loaded at ' + hms(DY.loaded) + '.';
+  let pk = 0; x.hours.forEach((v, h) => { if (v > x.hours[pk]) pk = h; });
+  $('dCrates').textContent = nf(x.total); $('dCratesS').textContent = isToday ? 'so far today' : 'for the day';
+  $('dSach').textContent = nf(x.total * spt); $('dSachS').textContent = spt + ' sachets / crate';
+  $('dRate').textContent = x.avg ? nf(x.avg) : '–'; $('dRateS').textContent = x.avg ? nf(x.avg * spt) + ' sachets / hour · while running' : 'needs more data';
+  $('dLast').textContent = has ? hms(x.last) : '–'; $('dLastS').textContent = has ? 'first crate ' + hms(x.first) : 'no crate recorded';
+  $('dStTxt').textContent = !has ? 'NO DATA' : isToday ? 'IN PROGRESS' : 'COMPLETED';
+  $('dStSub').textContent = !has ? 'No crates recorded on this day' : isToday ? 'Day not finished – figures as of ' + hm(DY.loaded) : 'Final figures for this day';
+  $('dRt').textContent = has ? dur(x.run) : '–'; $('dRtFirst').textContent = has ? hm(x.first) : '–'; $('dRtLast').textContent = has ? hm(x.last) : '–';
+  const ws = d + CONFIG.WINDOW_START * HOUR, we = d + CONFIG.WINDOW_END * HOUR, pc = ms => (ms - d) / DAY * 100;
+  $('dWnTxt').textContent = pad(CONFIG.WINDOW_START) + ':00 – ' + pad(CONFIG.WINDOW_END) + ':00';
+  $('dWnS').textContent = pad(CONFIG.WINDOW_START) + ':00'; $('dWnE').textContent = pad(CONFIG.WINDOW_END) + ':00';
+  $('dTrack').innerHTML = `<i style="left:${pc(ws)}%;width:${pc(we) - pc(ws)}%;background:#CFE9DB"></i>` +
+    (has ? `<i style="left:${pc(x.first)}%;width:${Math.max(.4, pc(x.last) - pc(x.first))}%;background:#1E6FEB" data-tip="<b>Production span</b><br>${hm(x.first)} – ${hm(x.last)}"></i>` : '') +
+    x.idles.map(i => `<i style="left:${pc(i.from)}%;width:${Math.max(.3, pc(i.to) - pc(i.from))}%;background:#F2A93B" data-tip="<b>Idle</b><br>${hm(i.from)} – ${hm(i.to)} (${dur(i.to - i.from)})"></i>`).join('');
+  $('dAvg').textContent = x.avg ? nf(x.avg) + ' crates/hr' : '–';
+  $('dPeak').textContent = has ? nf(x.hours[pk]) + ' crates' : '–'; $('dPeakM').textContent = has ? pad(pk) + ':00 – ' + pad(pk + 1) + ':00' : '';
+  $('dDur').textContent = has ? dur(x.last - x.first) : '–'; $('dDurM').textContent = has ? hm(x.first) + ' – ' + hm(x.last) : '';
+  $('dIdle').textContent = dur(x.idle); $('dIdleM').textContent = x.idles.length + (x.idles.length === 1 ? ' period' : ' periods');
+  // chart (same look as Overview: green)
+  let a = CONFIG.WINDOW_START, b = CONFIG.WINDOW_END;
+  x.hours.forEach((v, h) => { if (v > 0) { a = Math.min(a, h); b = Math.max(b, h + 1); } });
+  const nowH = Math.floor(((now + IST) % DAY) / HOUR);
+  if (!has) $('dChart').innerHTML = '<div class="empty">No crates were recorded on this day.</div>';
+  else if (DY.tab === 'hour') $('dChart').innerHTML = barSvg(x.hours.slice(a, b).map((v, i) => ({ v, lab: pad(a + i) + ':00',
+    tip: '<b>' + pad(a + i) + ':00–' + pad(a + i + 1) + ':00</b>' + (isToday && a + i === nowH ? ' (so far)' : '') + '<br>' + nf(v) + ' crates · ' + nf(v * spt) + ' sachets' })), 1, '#2DB36A');
+  else $('dChart').innerHTML = cumSvg(x.hours, a, b, isToday ? nowH : 23, true);
+  // idle list (newest first, like Overview)
+  $('dIdleList').innerHTML = x.idles.length ? x.idles.slice().reverse().map(i => `<div class="li"><svg class="ic"><use href="#i-pause"/></svg><span class="k">${hm(i.from)} – ${hm(i.to)}</span><b>${dur(i.to - i.from)}</b></div>`).join('')
+    : `<div class="empty">${has ? 'No idle periods longer than ' + CONFIG.IDLE_MIN + ' min.' : 'No data for this day.'}</div>`;
+}
+$('dayMain').addEventListener('click', e => {
+  if (e.target.closest('#dTbH')) { DY.tab = 'hour'; $('dTbH').className = 'on'; $('dTbC').className = ''; if (DY.x) renderDay(); }
+  else if (e.target.closest('#dTbC')) { DY.tab = 'cum'; $('dTbC').className = 'on'; $('dTbH').className = ''; if (DY.x) renderDay(); }
+});
+$('dPrev').onclick = () => { location.hash = '#day-' + isoDay(DY.t - DAY); };
+$('dNext').onclick = () => { if (DY.t < dayStart(Date.now())) location.hash = '#day-' + isoDay(DY.t + DAY); };
+$('dPick').onchange = ev => { if (ev.target.value) location.hash = '#day-' + ev.target.value; };
+$('dRefresh').onclick = () => loadDay(DY.t);
+route();
+
 </script>
 </body>
 </html>
