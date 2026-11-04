@@ -154,6 +154,11 @@ h1{font-size:24px}
 #dTrack{height:22px;border-radius:6px}
 #dayMain .tile{gap:12px;padding:16px}#dayMain .tile .ic{width:42px;height:42px}#dayMain .tile .v{font-size:34px}#dayMain .tile .v small{font-size:13px;display:block;margin:0}#dayMain .tile .s{font-size:13px}
 .lg{display:flex;gap:14px;flex-wrap:wrap;font-size:12px;color:var(--mut);margin-top:8px}.lg i{display:inline-block;width:10px;height:10px;border-radius:3px;margin-right:5px}
+.pk{display:flex;flex-wrap:wrap;gap:10px;align-items:flex-end}
+.pk label{font-size:13px;color:var(--mut);display:flex;flex-direction:column;gap:4px}
+.pk input{font:inherit;font-size:15px;padding:8px 10px;border:1px solid var(--line);border-radius:8px;min-height:44px;background:#fff;color:var(--ink)}
+.pk .go{font:inherit;font-size:15px;font-weight:600;min-height:44px;padding:8px 18px;border:0;border-radius:8px;background:var(--blue);color:#fff;cursor:pointer}
+#qk button{min-height:44px;padding:8px 16px}
 </style>
 </head>
 <body>
@@ -264,11 +269,26 @@ h1{font-size:24px}
     <div class="card"><h2>System Health</h2>
       <div class="li"><svg class="ic"><use href="#i-cam"/></svg><span class="k">Camera</span><b class="hl" id="hCam"><i class="dot"></i><span>–</span></b></div>
       <div class="li"><svg class="ic"><use href="#i-cpu"/></svg><span class="k">Processing</span><b class="hl" id="hFps"><i class="dot"></i><span>–</span></b></div>
-      <div class="li"><svg class="ic"><use href="#i-db"/></svg><span class="k">Database</span><b class="hl" id="hDb"><i class="dot"></i><span>–</span></b></div>
+      <div class="li"><svg class="ic"><use href="#i-db"/></svg><span class="k">Database (Supabase)</span><b class="hl" id="hDb"><i class="dot"></i><span>–</span></b></div>
       <div class="li"><svg class="ic"><use href="#i-wifi"/></svg><span class="k">Counter heartbeat</span><b class="hl" id="hBeat"><i class="dot"></i><span>–</span></b></div>
       <div class="li"><svg class="ic"><use href="#i-box"/></svg><span class="k">Waiting to upload</span><b class="hl" id="hQ"><i class="dot"></i><span>–</span></b></div>
     </div>
   </section>
+</main>
+<main class="main" id="pickMain" hidden>
+  <header class="top">
+    <button class="hamb" type="button" aria-label="Menu" aria-expanded="false"><svg class="ic"><use href="#i-menu"/></svg></button><div><h1>History</h1><div class="sub">Sachet Packing Line · choose a day or a range</div></div>
+  </header>
+  <section class="card"><h2>Quick select</h2>
+    <div class="tabs" id="qk"><button type="button" data-q="today">Today</button><button type="button" data-q="yest">Yesterday</button><button type="button" data-q="w">Last 7 days</button><button type="button" data-q="m30">Last 30 days</button><button type="button" data-q="month">This month</button></div>
+  </section>
+  <section class="row2">
+    <div class="card"><h2>Single day</h2><div class="sub" style="margin-bottom:12px">Full report for one day</div>
+      <div class="pk"><label>Date<input id="pDay" type="date"></label><button class="go" id="pDayGo" type="button">Open day</button></div></div>
+    <div class="card"><h2>Date range</h2><div class="sub" style="margin-bottom:12px">Consolidated summary, up to 92 days</div>
+      <div class="pk"><label>From<input id="pFrom" type="date"></label><label>To<input id="pTo" type="date"></label><button class="go" id="pRangeGo" type="button">Show range</button></div></div>
+  </section>
+  <div id="pErr" class="err" hidden></div>
 </main>
 <main class="main" id="histMain" hidden>
   <div class="hbanner">
@@ -278,6 +298,7 @@ h1{font-size:24px}
   <header class="top">
     <button class="hamb" type="button" aria-label="Menu" aria-expanded="false"><svg class="ic"><use href="#i-menu"/></svg></button><div><h1>History</h1><div class="sub">Sachet Packing Line · <span id="hSpt"></span> sachets per crate · <span id="hRangeTxt"></span></div></div>
     <div class="hctl">
+      <a class="olink" href="#history">← Change date / range</a>
       <div class="tabs seg" id="hTabs"><button type="button" data-r="7" class="on">7 days</button><button type="button" data-r="14">14 days</button><button type="button" data-r="30">30 days</button><button type="button" data-r="c">Custom</button></div>
       <span id="hCust" hidden><input id="hFrom" type="date" aria-label="From"> to <input id="hTo" type="date" aria-label="To"> <button class="go" id="hApply" type="button">Show</button></span>
     </div>
@@ -295,7 +316,7 @@ h1{font-size:24px}
   </div>
   <header class="top">
     <button class="hamb" type="button" aria-label="Menu" aria-expanded="false"><svg class="ic"><use href="#i-menu"/></svg></button><div><h1 id="dTitle">Day</h1><div class="sub">Sachet Packing Line · <span id="dSpt"></span> Sachets per Crate <span id="dToday" class="badge" hidden>TODAY · SO FAR</span></div></div>
-    <div class="dnav"><a href="#history">← All days</a><button id="dPrev" type="button" aria-label="Previous day">‹</button><input id="dPick" type="date" aria-label="Pick a day"><button id="dNext" type="button" aria-label="Next day">›</button></div>
+    <div class="dnav"><a id="dBack" href="#history" hidden>← Back to range</a><a href="#history">Change date</a><button id="dPrev" type="button" aria-label="Previous day">‹</button><input id="dPick" type="date" aria-label="Pick a day"><button id="dNext" type="button" aria-label="Next day">›</button></div>
   </header>
   <div id="dErr" class="err" hidden></div>
 
@@ -575,18 +596,26 @@ function startDemo() {
 boot();
 
 // ================= HISTORY PAGE =================
-const H = { days: [], sel: null, range: 7, from: 0, to: 0, loaded: 0, busy: false };
+const H = { days: [], sel: null, a: '', b: '', from: 0, to: 0, loaded: 0, tok: 0, lastHash: '' };
 function hErr(m) { const e = $('hErr'); e.hidden = !m; e.textContent = m || ''; }
+function syncTabs() {
+  const t = dayStart(Date.now()), n = Math.round((Date.parse(H.b + 'T00:00:00+05:30') - Date.parse(H.a + 'T00:00:00+05:30')) / DAY) + 1;
+  const preset = H.b === isoDay(t) && [7, 14, 30].includes(n) ? String(n) : 'c';
+  document.querySelectorAll('#hTabs button').forEach(x => x.classList.toggle('on', x.dataset.r === preset));
+  $('hCust').hidden = preset !== 'c'; $('hFrom').value = H.a; $('hTo').value = H.b;
+}
 function route() {
   if ($('app').hidden) return;
-  const hs = location.hash, m = /^#day-(\d{4}-\d\d-\d\d)$/.exec(hs), hist = hs === '#history', day = !!m;
-  $('app').classList.toggle('hist', hist || day);
-  $('liveMain').hidden = hist || day; $('histMain').hidden = !hist; $('dayMain').hidden = !day;
-  $('navLive').classList.toggle('on', !(hist || day)); $('navHist').classList.toggle('on', hist || day);
-  $('mNavLive').classList.toggle('on', !(hist || day)); $('mNavHist').classList.toggle('on', hist || day);
+  const hs = location.hash, md = /^#day-(\d{4}-\d\d-\d\d)$/.exec(hs), mr = /^#range-(\d{4}-\d\d-\d\d)_(\d{4}-\d\d-\d\d)$/.exec(hs);
+  const pick = hs === '#history', range = !!mr, day = !!md, live = !(pick || range || day);
+  $('app').classList.toggle('hist', !live);
+  $('liveMain').hidden = !live; $('pickMain').hidden = !pick; $('histMain').hidden = !range; $('dayMain').hidden = !day;
+  $('navLive').classList.toggle('on', live); $('navHist').classList.toggle('on', !live);
+  $('mNavLive').classList.toggle('on', live); $('mNavHist').classList.toggle('on', !live);
   tip.hidden = true; scrollTo(0, 0);
-  if (hist && !H.loaded) loadHist();
-  if (day) { const t = Date.parse(m[1] + 'T00:00:00+05:30'); if (isNaN(t)) location.hash = '#history'; else loadDay(t); }
+  if (pick) initPick();
+  if (range) { H.a = mr[1]; H.b = mr[2]; H.lastHash = hs; syncTabs(); loadHist(); }
+  if (day) { const t = Date.parse(md[1] + 'T00:00:00+05:30'); if (isNaN(t)) location.hash = '#history'; else loadDay(t); }
 }
 addEventListener('hashchange', route);
 { const _s = startLive; startLive = function () { _s(); route(); }; }
@@ -630,23 +659,19 @@ function finishDay(d, by) {
   return x;
 }
 async function loadHist() {
-  if (H.busy) return; H.busy = true; hErr(''); $('hLoaded').textContent = 'Loading…';
+  const tok = ++H.tok, a = H.a, b = H.b; hErr(''); $('hLoaded').textContent = 'Loading…';
+  if (!a || !b || a > b) { hErr('Pick a valid From and To date.'); $('hLoaded').textContent = ''; return; }
+  const from = Date.parse(a + 'T00:00:00+05:30'), to = Date.parse(b + 'T00:00:00+05:30') + DAY;
+  if ((to - from) / DAY > 92) { hErr('Please choose 92 days or fewer.'); $('hLoaded').textContent = ''; return; }
   try {
-    const today = dayStart(Date.now()); let from, to;
-    if (H.range === 'c') {
-      const a = $('hFrom').value, b = $('hTo').value;
-      if (!a || !b || a > b) { hErr('Pick a valid From and To date.'); return; }
-      from = Date.parse(a + 'T00:00:00+05:30'); to = Date.parse(b + 'T00:00:00+05:30') + DAY;
-      if ((to - from) / DAY > 92) { hErr('Please choose 92 days or fewer.'); return; }
-    } else { from = today - (H.range - 1) * DAY; to = today + DAY; }
     const recs = await fetchRecs(from, to);
+    if (tok !== H.tok) return;
     const by = aggDays(recs), days = [];
     for (let d = dayStart(from); d < to; d += DAY) days.push(finishDay(d, by));
     H.days = days; H.from = dayStart(from); H.to = to; H.loaded = Date.now();
-    if (!days.some(x => x.d === H.sel)) { const a = days.filter(x => x.total); H.sel = a.length ? a[a.length - 1].d : null; }
+    if (!days.some(x => x.d === H.sel)) { const w = days.filter(x => x.total); H.sel = w.length ? w[w.length - 1].d : null; }
     renderHist();
-  } catch (e) { hErr('Could not load history: ' + (e.message || e)); }
-  finally { H.busy = false; if (!H.loaded) $('hLoaded').textContent = ''; }
+  } catch (e) { if (tok === H.tok) { hErr('Could not load history: ' + (e.message || e)); $('hLoaded').textContent = ''; } }
 }
 function barSvg(items, every, col) {
   const W = innerWidth < 700 ? 360 : 800, Hh = 240, L = 52, R = 10, T = 12, B = 30, pw = W - L - R, ph = Hh - T - B;
@@ -688,16 +713,21 @@ function renderHist() {
 $('histMain').addEventListener('click', e => {
   const b = e.target.closest('[data-r]');
   if (b) {
-    H.range = b.dataset.r === 'c' ? 'c' : Number(b.dataset.r);
     document.querySelectorAll('#hTabs button').forEach(x => x.classList.toggle('on', x === b));
-    $('hCust').hidden = H.range !== 'c';
-    if (H.range === 'c') { const t = Date.now(); $('hTo').value = ist(t).toISOString().slice(0, 10); $('hFrom').value = ist(t - 6 * DAY).toISOString().slice(0, 10); }
-    else loadHist();
+    if (b.dataset.r === 'c') { $('hCust').hidden = false; return; }
+    const n = Number(b.dataset.r), t = dayStart(Date.now());
+    location.hash = '#range-' + isoDay(t - (n - 1) * DAY) + '_' + isoDay(t);
     return;
   }
   const r = e.target.closest('[data-d]'); if (r) { H.sel = Number(r.dataset.d); renderHist(); }
 });
-$('hApply').onclick = loadHist; $('hRefresh').onclick = loadHist;
+$('hApply').onclick = () => {
+  const a = $('hFrom').value, b = $('hTo').value;
+  if (!a || !b || a > b) { hErr('Pick a valid From and To date.'); return; }
+  const h = '#range-' + a + '_' + b;
+  if (location.hash === h) loadHist(); else location.hash = h;
+};
+$('hRefresh').onclick = () => loadHist();
 
 // ================= TOOLTIP + SINGLE-DAY REPORT =================
 const isoDay = ms => ist(ms).toISOString().slice(0, 10);
@@ -717,6 +747,7 @@ const DY = { t: 0, x: null, loaded: 0, tab: 'hour', tok: 0 };
 function dErr(m) { const e = $('dErr'); e.hidden = !m; e.textContent = m || ''; }
 async function loadDay(t) {
   const tok = ++DY.tok; dErr(''); DY.t = t;
+  $('dBack').hidden = !H.lastHash; if (H.lastHash) $('dBack').href = H.lastHash;
   $('dTitle').textContent = dateStr(t); $('dPick').value = isoDay(t); $('dLoaded').textContent = 'Loading…';
   $('dNext').disabled = t >= dayStart(Date.now()); $('dToday').hidden = t !== dayStart(Date.now());
   try {
@@ -780,6 +811,29 @@ $('dPrev').onclick = () => { location.hash = '#day-' + isoDay(DY.t - DAY); };
 $('dNext').onclick = () => { if (DY.t < dayStart(Date.now())) location.hash = '#day-' + isoDay(DY.t + DAY); };
 $('dPick').onchange = ev => { if (ev.target.value) location.hash = '#day-' + ev.target.value; };
 $('dRefresh').onclick = () => loadDay(DY.t);
+// ---------- history picker ----------
+function pErr(m) { const e = $('pErr'); e.hidden = !m; e.textContent = m || ''; }
+function initPick() {
+  const t = Date.now(), today = isoDay(t);
+  ['pDay', 'pFrom', 'pTo'].forEach(id => { $(id).max = today; });
+  if (!$('pDay').value) $('pDay').value = isoDay(t - DAY);
+  if (!$('pFrom').value) { $('pFrom').value = isoDay(t - 6 * DAY); $('pTo').value = today; }
+  pErr('');
+}
+$('pickMain').addEventListener('click', e => {
+  const q = e.target.closest('[data-q]'); if (!q) return;
+  const t = dayStart(Date.now()), today = isoDay(t), k = q.dataset.q, d0 = ist(t), rg = (a, b) => '#range-' + a + '_' + b;
+  location.hash = k === 'today' ? '#day-' + today : k === 'yest' ? '#day-' + isoDay(t - DAY)
+    : k === 'w' ? rg(isoDay(t - 6 * DAY), today) : k === 'm30' ? rg(isoDay(t - 29 * DAY), today)
+    : rg(d0.getUTCFullYear() + '-' + pad(d0.getUTCMonth() + 1) + '-01', today);
+});
+$('pDayGo').onclick = () => { const v = $('pDay').value; if (!v) { pErr('Pick a date.'); return; } location.hash = '#day-' + v; };
+$('pRangeGo').onclick = () => {
+  const a = $('pFrom').value, b = $('pTo').value;
+  if (!a || !b || a > b) { pErr('Pick a valid From and To date.'); return; }
+  if ((Date.parse(b + 'T00:00:00+05:30') - Date.parse(a + 'T00:00:00+05:30')) / DAY + 1 > 92) { pErr('Please choose 92 days or fewer.'); return; }
+  location.hash = '#range-' + a + '_' + b;
+};
 $('mSign').onclick = ev => { ev.preventDefault(); $('signout').click(); };
 
 // ---------- mobile 3-bar menu ----------
