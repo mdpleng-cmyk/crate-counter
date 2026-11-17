@@ -204,12 +204,14 @@ h1{font-size:24px}
   <a class="off" href="#" aria-disabled="true"><svg class="ic"><use href="#i-bell"/></svg>Events</a>
   <a class="off" href="#" aria-disabled="true"><svg class="ic"><use href="#i-gear"/></svg>Settings</a>
   <div class="sp"></div>
+  <small id="who" style="font-size:13px;opacity:1;color:#fff"></small>
   <a href="#" id="signout"><svg class="ic"><use href="#i-out"/></svg>Sign out</a>
   <small>Crate Counter · Sachet Packing Line</small>
 </nav>
 <nav class="mnav" aria-label="Main (mobile)">
   <a class="on" id="mNavLive" href="#"><svg class="ic"><use href="#i-home"/></svg>Overview</a>
   <a id="mNavHist" href="#history"><svg class="ic"><use href="#i-hist"/></svg>History</a>
+  <div id="whoM" style="padding:6px 12px;font-size:13px;color:#fff"></div>
   <a id="mSign" href="#"><svg class="ic"><use href="#i-out"/></svg>Sign out</a>
 </nav>
 
@@ -554,6 +556,7 @@ async function loadAll() {
 function startLive() {
   $('login').hidden = true; $('app').hidden = false;
   startVisitLog();
+  showUser();
   sb.channel('crate-live')
     .on('postgres_changes', { event: '*', schema: 'public', table: 'tray_minutes' }, p => {
       if (p.eventType === 'DELETE') { rows.delete(Date.parse(p.old.minute_ts)); } else put(p.new); scheduleRender(); })
