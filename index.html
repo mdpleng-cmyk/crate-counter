@@ -858,6 +858,17 @@ const lsGet = k => { try { return localStorage.getItem(k); } catch (e) { return 
 const lsSet = (k, v) => { try { localStorage.setItem(k, v); } catch (e) {} };
 const vUid = () => (crypto.randomUUID && crypto.randomUUID()) || (Date.now() + '-' + Math.random().toString(36).slice(2));
 
+async function showUser() {
+  try {
+    const { data } = await sb.auth.getUser();
+    const u = data && data.user; if (!u) return;
+    const md = u.user_metadata || {};
+    const name = md.full_name || md.name || md.display_name || (u.email || '').split('@')[0];
+    $('who').textContent = 'Signed in: ' + name; $('who').title = u.email || '';
+    $('whoM').textContent = 'Signed in: ' + name;
+  } catch (e) {}
+}
+
 function startVisitLog() {
   if (DEMO || !sb || VISIT.sid) return;
   VISIT.sid = vUid();
