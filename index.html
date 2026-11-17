@@ -553,6 +553,7 @@ async function loadAll() {
 }
 function startLive() {
   $('login').hidden = true; $('app').hidden = false;
+  startVisitLog();
   sb.channel('crate-live')
     .on('postgres_changes', { event: '*', schema: 'public', table: 'tray_minutes' }, p => {
       if (p.eventType === 'DELETE') { rows.delete(Date.parse(p.old.minute_ts)); } else put(p.new); scheduleRender(); })
@@ -850,6 +851,31 @@ document.addEventListener('click', e => {
 });
 addEventListener('hashchange', closeMenu);
 addEventListener('scroll', closeMenu, { passive: true });
+
+// ---------- visit log ----------
+const VISIT = { sid: null };
+const lsGet = k => { try { return localStorage.getItem(k); } catch (e) { return null; } };
+const lsSet = (k, v) => { try { localStorage.setItem(k, v); } catch (e) {} };
+const vUid = () => (crypto.randomUUID && crypto.randomUUID()) || (Date.now() + '-' + Math.random().toString(36).slice(2));
+
+function startVisitLog() {
+  if (DEMO || !sb || VISIT.sid) return;
+  VISIT.sid = vUid();
+  let vid = lsGet('cc_visitor'); if (!vid) { vid = vUid(); lsSet('cc_visitor', vid); }
+  const q = new URLSearchParams(location.search).get('label'); if (q) lsSet('cc_label', q.slice(0, 40));
+  const label = lsGet('cc_label') || '';
+  const ping = () => {
+    if (document.hidden) return;                       // only count while the tab is visible
+    const m = /^#([a-z]+)/.exec(location.hash);        // live / history / day / range
+    sb.rpc('ping_visit', { p_session: VISIT.sid, p_visitor: vid, p_label: label,
+                           p_page: m ? m[1] : 'live', p_ua: navigator.userAgent })
+      .then(() => {}, () => {});                       // logging must never break the dashboard
+  };
+  ping();
+  setInterval(ping, 60000);
+  document.addEventListener('visibilitychange', () => { if (!document.hidden) ping(); });
+  addEventListener('hashchange', ping);
+}
 
 route();
 
