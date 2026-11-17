@@ -216,7 +216,7 @@ h1{font-size:24px}
 <nav class="mnav" aria-label="Main (mobile)">
   <a class="on" id="mNavLive" href="#"><svg class="ic"><use href="#i-home"/></svg>Overview</a>
   <a id="mNavHist" href="#history"><svg class="ic"><use href="#i-hist"/></svg>History</a>
-  <div id="whoM" style="padding:6px 12px;font-size:13px;color:#fff"></div>
+  <div class="who"><span class="av" id="whoAvM">?</span><div><div class="wl">Signed in</div><div class="wn" id="whoM"></div></div></div>
   <a id="mSign" href="#"><svg class="ic"><use href="#i-out"/></svg>Sign out</a>
 </nav>
 
@@ -873,7 +873,7 @@ async function showUser() {
     const md = u.user_metadata || {};
     const name = md.full_name || md.name || md.display_name || (u.email || '').split('@')[0];
     $('who').textContent = name; $('who').title = u.email || ''; $('whoAv').textContent = (name[0] || '?').toUpperCase();
-    $('whoM').textContent = 'Signed in: ' + name;
+    $('whoM').textContent = name; $('whoAvM').textContent = (name[0] || '?').toUpperCase();
   } catch (e) {}
 }
 
